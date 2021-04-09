@@ -1,6 +1,6 @@
 <template>
-  <div class="navigation">
-    <aside-menu :asideFlag="asideFlag" ref="asideMenu"></aside-menu>
+<aside-menu :asideFlag="asideFlag" ref="asideMenu"></aside-menu>
+  <header class="navigation">
     <div class="navigation-content">
       <div class="navigation-content-left flex-center">
         <div class="menu-icon" @click="clickMenu()">
@@ -13,7 +13,7 @@
         <button class="btn">登录</button>
       </div>
       <div class="navigation-content-middle flex-center">
-        <router-link :to="{ name: 'Home' }" class="navigation-link" ref="nav-link-item">首页</router-link>
+        <router-link :to="{ name: 'HomePage' }" class="navigation-link" ref="nav-link-item">首页</router-link>
         <router-link :to="{ name: 'MyProfile' }" class="navigation-link" ref="nav-link-item">关于我</router-link>
         <a class="navigation-link" ref="nav-link-item">首页</a>
         <a class="navigation-link" ref="nav-link-item">首页</a>
@@ -21,7 +21,7 @@
         <a class="nav-banner">Totolo</a>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
@@ -69,6 +69,11 @@ export default {
 <style  scoped>
 
 .navigation {
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  left: 0px;
+  right: 0px;
   height: 56px;
   border-bottom: 1px solid #eee;
   box-shadow: 1px 1px #eee;

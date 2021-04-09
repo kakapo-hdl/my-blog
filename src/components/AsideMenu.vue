@@ -40,7 +40,8 @@ props:{
 
 <style>
 .asdie-menu {
-  position: absolute;
+  position: fixed;
+  top: 0;
   height: 100%;
   width: 255px;
   z-index: 999;

@@ -1,6 +1,7 @@
 <template>
-  <div>
     <navigation></navigation>
+  <div class="main-container margin-container">
+
     <router-view></router-view>
   </div>
 </template>
@@ -17,4 +18,9 @@ export default {
 </script>
 
 <style scoped>
+.margin-container{
+  margin-top: 56px;
+  padding: 0;
+}
+
 </style>

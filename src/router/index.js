@@ -1,17 +1,17 @@
 import { createWebHistory, createRouter } from "vue-router";
-const Home = () => import('../views/HomePage.vue')
+const HomePage = () => import('../views/HomePage.vue')
 const MyProfile = () => import('../views/MyProfile.vue')
 
 const routes = [
   {
     path: "/:catchAll(.*)",
-    name: "NotFound",
-    component: Home
+    name: "HomePage",
+    component: HomePage
   },
   {
-    path:'/Home',
-    name: "Home",
-    component: Home
+    path:'/HomePage',
+    name: "HomePage",
+    component: HomePage
   },
   {
     path:'/MyProfile',
