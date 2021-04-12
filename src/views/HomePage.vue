@@ -1,6 +1,7 @@
 <template>
-    <div class="courousel-main">
-       <courousel></courousel> 
+    <div class="courousel-main" >
+      
+       <courousel  :delayTime="1000" :imageChangeTime="5000"></courousel> 
     </div>
 </template>
 
@@ -16,5 +17,7 @@ name:'HomePage'
 .courousel-main{
   width: 100%;
   padding:0 24px 40px 24px;
+  max-width:1080px;
+  margin:auto;
 }
 </style>

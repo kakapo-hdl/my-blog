@@ -9,9 +9,25 @@
     ref="ImageArea"
   >
     <ul ref="AllImages" :class="`ul-carousel-image`">
-      <div  :ref="setItemRef" v-for="(item, index) in images" class="li-image" :key="index">
+      <div  :ref="setItemRef" v-for="(item, index) in images" style="display:none" class="li-image" :key="index">
+        <!-- <div> -->
+        <div class="carousel-shadow"></div>
         <div class="crousel-image-item" :style="`background-image:url(${item.src});`" />
+        <div class="crousel-image-message">
+        <div >
+        {{item.text}}
+       </div>
+       <div>      
+            <a class="v-btn"> 
+           <span>开始阅读</span>
+         </a></div>
+
+        </div>
+
+        <!-- </div> -->
+
       </div>
+
     </ul>
   </div>
 
@@ -51,9 +67,22 @@ export default {
       CourouselWidth: 0,
     };
   },
+  props:{
+    delayTime:Number,  
+    imageChangeTime:Number,
+    isAuto:Boolean,
+    contents:
+    {
+      imageUrl:String,
+      imageMsg:String,
+      imageLink:String
+    },
+
+  
+  },
   mounted() {
     let that = this;
-    this.imagesIndex = 2;
+    that.itemRefs[0].style =`left:0px; transition-duration:1s;` ;
     this.CarouselTimer();
     that.imageHeight = document.documentElement.clientHeight - 56 - 60 - 40;
     setTimeout(() => {
@@ -72,35 +101,14 @@ export default {
     },
     CarouselMove(index, nextIndex) {
       let images = this.itemRefs;
-      // console.log(this.itemRefs);
-      //       if (diretion == "left") {
-      //   this.$refs.swiperItem[index].style =
-      //     "left:1120px;display:block;transition-duration:0ms";
-      //   setTimeout(() => {
-      //     this.$refs.swiperItem[originalIndex].style = "left:-1120px;display:block;";
-      //     this.$refs.swiperItem[index].style = "left:0px;display:block;";
-      //   }, 10);
-      // }
-      // else{
-      //    this.$refs.swiperItem[index].style =
-      //     "left:-1120px;display:block;transition-duration:0ms";
-      //   setTimeout(() => {
-      //    this.$refs.swiperItem[originalIndex].style = "left:1120px;display:block;";
-      //     this.$refs.swiperItem[index].style = "left:0px;display:block;";
-      //   }, 10);
-      // }
-      // console.log(images);
-      if (index < nextIndex) {
-        images[index].style = `transform: translateX(-${this.imageWidth}px); transition-duration:1s`;
-
+        images[nextIndex].style = `left:${this.imageWidth}px; transition-duration:${this.delayTime}ms`;
         setTimeout(() => {
-        images[nextIndex].style = `transform: translateX(+${this.imageWidth}px); transition-duration:0s`;
-        images[nextIndex].style = `transform: translateX(0px); transition-duration:1s`;
-        }, 10);
+        images[index].style = `left:-${this.imageWidth}px; transition-duration:${this.delayTime}ms`;
+        images[nextIndex].style = `left:0px; transition-duration:${this.delayTime}ms`;
+        },10);
         setTimeout(() => {
-          images[index].style = "display:none";
-        }, 1000);
-      }
+           images[index].style="display:none"
+        }, this.delayTime);
     },
     myEndFunction() {
       console.log(`finish`);
@@ -116,7 +124,7 @@ export default {
            this.CarouselMove(lastIndex,this.imagesIndex)
         }
         this.CarouselTimer();
-      }, 4000);
+      }, this.imageChangeTime);
     },
   },
     beforeUpdate() {
@@ -130,6 +138,8 @@ export default {
   overflow: hidden;
 }
 .crousel-image-item {
+    // z-index: -1;
+    position: absolute;
   width: 100%;
   height: 100%;
   background-position: center;
@@ -149,13 +159,91 @@ export default {
   transition-duration: 1s;
 }
 .ul-carousel-image {
+  position: relative;
+  flex: 1 0 auto;
   transition: 1s;
   height: 100%;
   display: flex;
 }
+.crousel-image-message{
+  position: inherit;
+  padding:0 36px 60px 48px;
+  bottom: 0;
+  z-index: 100;
+  font-size: 2.125rem!important;
+  line-height: 2.5rem;
+  letter-spacing: .0073529412em!important;
+  font-weight: 400;
+  font-family: Roboto,sans-serif!important;
+  color: #fff;
+}
+.crousel-image-message div,a{
+  padding: 12px;
+}
 .li-image {
+  position: absolute;
   width: 100%;
   height: 100%;
   flex-shrink: 0;
+  display: flex;
+  flex: 1 0 auto;
+  align-items: flex-end;
+  // display: none;
+}
+.carousel-shadow{
+  width:100%;
+  position: absolute;
+flex: 1 0 0px;
+z-index: 1;
+padding-bottom: 31.25%;
+background: linear-gradient(
+180deg
+,rgba(49,49,48,0),rgba(22,29,39,.9));
+}
+// .v-btn {
+//     align-items: center;
+//     border-radius: 4px;
+//     display: inline-flex;
+//     flex: 0 0 auto;
+//     font-weight: 500;
+//     letter-spacing: .0892857143em;
+//     justify-content: center;
+//     outline: 0;
+//     position: relative;
+//     text-decoration: none;
+//     text-indent: .0892857143em;
+//     text-transform: uppercase;
+//     transition-duration: .28s;
+//     transition-property: box-shadow,transform,opacity;
+//     transition-timing-function: cubic-bezier(.4,0,.2,1);
+//     -webkit-user-select: none;
+//     -moz-user-select: none;
+//     -ms-user-select: none;
+//     user-select: none;
+//     vertical-align: middle;
+//     white-space: nowrap;
+// }
+// .v-btn__content {
+//     align-items: center;
+//     color: inherit;
+//     display: flex;
+//     flex: 1 0 auto;
+//     justify-content: inherit;
+//     line-height: normal;
+//     position: relative;
+// }
+// .v-btn--contained:active {
+//     box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
+// }
+.v-btn{
+  display: inline-flex;
+  cursor: pointer;
+  border-radius: 28px;
+  padding: 0 16px;
+  height: 36px;
+  line-height: 36px;
+  font-size:16px;
+  color: #fff;
+  background-color:#CF463C ;
 }
 </style>
