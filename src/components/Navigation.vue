@@ -107,7 +107,7 @@ export default {
   font-weight: 800;
   height: 40px;
   line-height: 40px;
-  font-size: 30px;
+  font-size: 1.5em;
   padding: 0 10px;
   display: block;
   cursor: pointer;
