@@ -1,18 +1,36 @@
 <template>
-<div>
-  <index></index>
-</div>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <div>
+      <p>
+        If Element is successfully added to this project, you'll see an
+        <code v-text="'<el-button>'"></code>
+        below
+      </p>
+      <el-button>el-button</el-button>
+    </div>
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  </div>
 </template>
 
 <script>
-import Index from "./views/index.vue";
+import HelloWorld from './components/HelloWorld.vue'
+
 export default {
-  name: "App",
-  components:{Index}
-};
+  name: 'app',
+  components: {
+    HelloWorld
+  }
+}
 </script>
 
-<style >
-@import "assets/css/base.css";
-@import "assets/font-awesome-4.7.0/css/font-awesome.min.css";
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>

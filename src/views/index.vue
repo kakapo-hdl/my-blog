@@ -1,7 +1,8 @@
 <template>
     <navigation></navigation>
   <div class="main-container margin-container">
-
+    
+    
     <router-view></router-view>
   </div>
 </template>

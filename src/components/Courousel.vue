@@ -1,7 +1,7 @@
 <template>
   <div class="carousel-action">
     <span class="">猜你喜欢</span>
-    <div>自动播放</div>
+    <div style="display:flex;align-items: center;"><switch-btn :isClick="false" @get-status="getSwitch()" style="margin-right:10px"></switch-btn> 自动播放</div>
   </div>
   <div
     class="main-carousel-image"
@@ -15,7 +15,7 @@
         style="display: none"
         class="li-image"
         :key="index"
-        :index="index"
+        :index ="index"
       >
         <!-- <div> -->
         <div class="carousel-shadow"></div>
@@ -37,30 +37,25 @@
         <!-- </div> -->
       </div>
       <div class="crousel-index-icon">
-        <i v-for="(item,index) in images" :key="index" class="fa fa-tint" :style="`color:${imagesIndex==index ? '#D5D8DA': '#A2A7AC'};cursor: pointer;margin-right:30px`">
+        <i v-for="(item,index) in images" @click="changeCrousel(index)" :key="index" class="fa fa-tint" :style="`color:${imagesIndex==index ? '#D5D8DA': '#A2A7AC'};cursor: pointer;margin-right:30px`">
         <!-- {{imagesIndex+'aa'+index}} -->
         </i>
         </div>
     </ul>
   </div>
-
-  <!-- <div class="carousel-pointer-image">
-        <ul class="ul-pointer-image">
-          <li >
-           
-          </li>
-        </ul>
-      </div> -->
 </template>
 
-<script>
+<script >
+import SwitchBtn from './common/SwitchBtn.vue';
 export default {
+  components: { SwitchBtn },
   name: "CarouselGoods",
   data() {
     return {
       imageHeight: 0,
       imageWidth: 0,
       itemRefs: [],
+      timer:Object,
       images: [
         {
           text: "图片2",
@@ -93,10 +88,21 @@ export default {
       imageLink: String,
     },
   },
+  emits:{
+    
+  },
   mounted() {
     let that = this;
     that.itemRefs[0].style = `left:0px; transition-duration:1s;`;
-    this.CarouselTimer();
+    for(let [index,item] of that.itemRefs.entries()){
+
+    item.addEventListener('transitionend', ()=> {
+         if(parseInt(item.getAttribute("index")) !== this.imagesIndex){
+           item.style="display:none"
+         }
+    });
+    }
+    this.startCarouselTimer();
     that.imageHeight = document.documentElement.clientHeight - 56 - 60 - 40;
     setTimeout(() => {
       that.imageWidth = that.$refs.ImageArea.offsetWidth;
@@ -112,39 +118,60 @@ export default {
     setItemRef(el) {
       this.itemRefs.push(el);
     },
-    CarouselMove(index, nextIndex) {
+    CarouselMove(index, nextIndex, direction) {
       let images = this.itemRefs;
-      images[
-        nextIndex
-      ].style = `left:${this.imageWidth}px; transition-duration:${this.delayTime}ms`;
-      setTimeout(() => {
-        images[
-          index
-        ].style = `left:-${this.imageWidth}px; transition-duration:${this.delayTime}ms`;
-        images[
-          nextIndex
-        ].style = `left:0px; transition-duration:${this.delayTime}ms`;
-      }, 10);
-      setTimeout(() => {
-        images[index].style = "display:none";
-      }, this.delayTime);
+      if(direction == 'right'){
+      images[nextIndex].style = `left:${this.imageWidth}px; transition-duration:0ms`;
+      setTimeout(() => { images[index].style = `left:-${this.imageWidth}px; transition-duration:${this.delayTime}ms`;
+        images[ nextIndex].style = `left:0px; transition-duration:${this.delayTime}ms`;
+      }, 0);
+      }else{
+      images[nextIndex].style = `left:-${this.imageWidth}px; transition-duration:0ms`;
+      setTimeout(() => { images[index].style = `left:${this.imageWidth}px; transition-duration:${this.delayTime}ms`;
+        images[ nextIndex].style = `left:0px; transition-duration:${this.delayTime}ms`;
+      }, 0);
+      }
+      // setTimeout(() => {
+      //   images[index].style = "display:none";
+      // }, this.delayTime);
+
+    },
+    getSwitch(e){
+      console.log(this);
     },
     myEndFunction() {
       console.log(`finish`);
     },
-    CarouselTimer() {
-      setTimeout(() => {
+    changeCrousel(nextIndex){
+      this.stopTimer();
+      if(nextIndex != this.imagesIndex){
+         this.stopTimer();
+        if(nextIndex > this.imagesIndex){
+        this.CarouselMove(this.imagesIndex,nextIndex,'right');
+        this.imagesIndex = nextIndex;
+      }else{
+        this.CarouselMove(this.imagesIndex,nextIndex,'left');
+        this.imagesIndex = nextIndex;
+      }
+      }
+      this.startCarouselTimer();
+
+    },
+    startCarouselTimer() {
+    this.timer = setInterval(() => {
         let lastIndex = this.imagesIndex;
         if (this.imagesIndex >= this.images.length - 1) {
           this.imagesIndex = 0;
-          this.CarouselMove(lastIndex, this.imagesIndex);
+          this.CarouselMove(lastIndex, this.imagesIndex,'right');
         } else {
           this.imagesIndex++;
-          this.CarouselMove(lastIndex, this.imagesIndex);
+          this.CarouselMove(lastIndex, this.imagesIndex,'right');
         }
-        this.CarouselTimer();
       }, this.imageChangeTime);
     },
+    stopTimer(){
+      clearTimeout(this.timer);
+    }
   },
   beforeUpdate() {
     this.itemRefs = [];
@@ -275,6 +302,6 @@ a {
   text-align: center;
   width: 100%;
   font-size: 24px;
-  z-index: 99;
+  z-index: 999;
 }
 </style>
