@@ -1,7 +1,9 @@
 <template>
     <div class="courousel-main" > 
        <courousel  :delayTime="1000" :imageChangeTime="5000"></courousel>
-  
+       <div class="Home-contain-mian">
+
+       </div>
     </div>
 </template>
 
@@ -19,5 +21,9 @@ name:'HomePage'
   padding:0 24px 40px 24px;
   max-width:1080px;
   margin:auto;
+}
+.Home-contain-mian{
+  display:flex;
+  flex-wrap: wrap;
 }
 </style>

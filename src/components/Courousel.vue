@@ -215,7 +215,7 @@ export default {
   position: inherit;
   padding: 0 36px 60px 48px;
   bottom: 0;
-  z-index: 100;
+  z-index: 90;
   font-size: 2.125rem !important;
   line-height: 2.5rem;
   letter-spacing: 0.0073529412em !important;
@@ -249,41 +249,6 @@ a {
     rgba(22, 29, 39, 0.9)
   );
 }
-// .v-btn {
-//     align-items: center;
-//     border-radius: 4px;
-//     display: inline-flex;
-//     flex: 0 0 auto;
-//     font-weight: 500;
-//     letter-spacing: .0892857143em;
-//     justify-content: center;
-//     outline: 0;
-//     position: relative;
-//     text-decoration: none;
-//     text-indent: .0892857143em;
-//     text-transform: uppercase;
-//     transition-duration: .28s;
-//     transition-property: box-shadow,transform,opacity;
-//     transition-timing-function: cubic-bezier(.4,0,.2,1);
-//     -webkit-user-select: none;
-//     -moz-user-select: none;
-//     -ms-user-select: none;
-//     user-select: none;
-//     vertical-align: middle;
-//     white-space: nowrap;
-// }
-// .v-btn__content {
-//     align-items: center;
-//     color: inherit;
-//     display: flex;
-//     flex: 1 0 auto;
-//     justify-content: inherit;
-//     line-height: normal;
-//     position: relative;
-// }
-// .v-btn--contained:active {
-//     box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
-// }
 .v-btn {
   display: inline-flex;
   cursor: pointer;
@@ -297,11 +262,10 @@ a {
 }
 .crousel-index-icon{
   position: absolute;
-
   bottom: 0;
   text-align: center;
   width: 100%;
   font-size: 24px;
-  z-index: 999;
+  z-index: 99;
 }
 </style>
