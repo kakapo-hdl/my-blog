@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-action">
-    <span class="">猜你喜欢</span>
+    <span class="title-text" >猜你喜欢</span>
     <div style="display:flex;align-items: center;"><switch-btn :isClick="false" @get-status="getSwitch()" style="margin-right:10px"></switch-btn> 自动播放</div>
   </div>
   <div
@@ -195,12 +195,7 @@ export default {
 .crousel-image-item:hover {
   transform: scale(1.05);
 }
-.carousel-action {
-  display: flex;
-  justify-content: space-between;
-  height: 66px;
-  align-items: center;
-}
+
 .delay-carousel {
   transition-duration: 1s;
 }

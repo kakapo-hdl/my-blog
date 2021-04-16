@@ -71,12 +71,12 @@ export default {
 .navigation {
   position: fixed;
   top: 0;
-  z-index: 5;
+  z-index: 400;
   left: 0px;
   right: 0px;
   height: 56px;
   border-bottom: 1px solid #eee;
-  box-shadow: 1px 1px #eee;
+  box-shadow: 1px 1px #eee;background-color: #F4F4F4;
 }
 .navigation-content {
   max-width: 1420px;
